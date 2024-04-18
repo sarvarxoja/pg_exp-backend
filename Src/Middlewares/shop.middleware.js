@@ -7,29 +7,10 @@ export default {
   async checkShop(req, res, next) {
     try {
       let { product_id, game_id } = req.body;
-      const maxSize = 6000000;
 
       if (!req.file) {
         return res.status(400).json({
           msg: "to'lov qiling va screen rasmini joylashtiring",
-          staus: 400,
-        });
-      }
-
-      var ext = path.extname(req.file.originalname);
-
-      if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
-        fs.unlinkSync(path.join(process.cwd(), "uploads", req.file.filename));
-        return res.status(400).json({
-          msg: "Siz notog'ri file jonatmoqdasiz('File jpeg, jpg yoki png bolishi kerak')",
-          staus: 400,
-        });
-      }
-
-      if (req.file.size > maxSize) {
-        fs.unlinkSync(path.join(process.cwd(), "uploads", req.file.filename));
-        return res.status(400).json({
-          msg: "Siz katta hajmga ega rasm yubordingiz rasm hajmi 6mb dan oshmasligi kerak')",
           staus: 400,
         });
       }
@@ -56,12 +37,7 @@ export default {
 
       return next();
     } catch (error) {
-      if (error instanceof mongoose.MongooseError) {
-        fs.unlinkSync(path.join(process.cwd(), "uploads", req.file.filename));
-        return res
-          .status(401)
-          .json({ msg: "invalide product_id", status: 401 });
-      }
+      console.log(error.message);
     }
   },
 };

@@ -7,18 +7,18 @@ const Order = new Schema({
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
-    require: true,
+    required: true,
   },
 
   product_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Products",
-    require: true,
+    required: true,
   },
 
   paid: {
     type: String,
-    allowNull: false,
+    required: false,
   },
 
   completed_orders: {
@@ -28,13 +28,13 @@ const Order = new Schema({
 
   game_id: {
     type: Number,
-    allowNull: false,
+    required: false,
   },
 
   created: {
     type: Date,
-    default: Date
-  }
+    default: Date,
+  },
 });
 
 export const OrderModel = mongoose.model("Orders", Order);

@@ -12,8 +12,8 @@ const registerLimiter = rateLimit({
 });
 
 const shopLimiter = rateLimit({
-  windowMs: 10 * 60 * 1000,
-  max: 2,
+  windowMs: 60 * 1000,
+  max: 1,
   message: (req, res) => {
     return res.status(429).json({
       msg: "Foydalanuvchi hajmi limitga yetdi. Iltimos, keyinroq harakat qiling.",

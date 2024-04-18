@@ -10,22 +10,25 @@ export default {
       let { access_token } = req.headers;
       let payload = jwt.verify(access_token, SECRET_KEY);
 
-      let { username, name, last_name, password } = req.body;
+      let { username, name, last_name, password, user_bio } = req.body;
 
       let users = await UserModel.find();
 
-      let check_username = users.find(
-        (user) => user.username.toLowerCase() == `@${username.toLowerCase()}`
-      );
+      if (username) {
+        let check_username = users.find(
+          (user) => user.username.toLowerCase() == `@${username.toLowerCase()}`
+        );
 
-      if (check_username) {
-        return res.status(409).json({
-          msg: "this username already exists",
-          status: 409,
-        });
+        if (check_username) {
+          return res.status(409).json({
+            msg: "this username already exists",
+            status: 409,
+          });
+        }
+        
       }
 
-      if (username && name && password && last_name) {
+      if (username && name && password && last_name && user_bio) {
         password = await encodePassword(password);
         let userUpdated = await UserModel.updateMany(
           { _id: payload.id },
@@ -34,6 +37,7 @@ export default {
             name: name,
             password: password,
             last_name: last_name,
+            user_bio: user_bio,
           }
         );
         return res.status(200).json({
@@ -47,6 +51,18 @@ export default {
         let userUpdated = await UserModel.updateOne(
           { _id: payload.id },
           { username: username }
+        );
+        return res.status(200).json({
+          msg: "successfully updated",
+          data: userUpdated,
+          status: 200,
+        });
+      }
+
+      if (user_bio) {
+        let userUpdated = await UserModel.updateOne(
+          { _id: payload.id },
+          { user_bio: user_bio }
         );
         return res.status(200).json({
           msg: "successfully updated",

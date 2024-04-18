@@ -8,7 +8,7 @@ export const products_router = Router();
 products_router
   .post(
     "/create",
-    token.checkAdminToken,
+    token.checkShopToken,
     productsMiddleware.checkProduct,
     productController.createProduct
   )

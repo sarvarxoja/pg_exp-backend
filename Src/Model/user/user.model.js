@@ -7,6 +7,11 @@ const Users = new Schema({
     default: null,
   },
 
+  profile_banner: {
+    type: String,
+    default: null,
+  },
+
   username: {
     type: String,
     require: true,
@@ -47,6 +52,21 @@ const Users = new Schema({
   last_login: {
     type: Date,
     default: Date,
+  },
+
+  is_shop: {
+    type: Boolean,
+    default: false,
+  },
+
+  is_famous: {
+    type: Boolean,
+    default: false,
+  },
+
+  checkmark: {
+    type: String,
+    default: null,
   },
 
   user_bio: {

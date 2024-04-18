@@ -13,7 +13,7 @@ export default {
         username.length > 20 ||
         username.length < 4 ||
         !isNaN(username) ||
-        /[@#!$%^&*:']/g.test(username)
+        /[@#!$%^&*:'" "]/g.test(username)
       ) {
         return res.status(400).json({ msg: "invalide username", status: 400 });
       }

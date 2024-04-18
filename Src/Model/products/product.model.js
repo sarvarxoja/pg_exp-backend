@@ -11,6 +11,12 @@ const Products = new Schema({
     type: Number,
     require: true,
   },
+
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+    require: true,
+  },
 });
 
 export const ProductsModel = mongoose.model("Products", Products);
